@@ -16,10 +16,12 @@ function seleccionar(){
     menuVisible = false;
 }
 //Funcion que aplica las animaciones de las habilidades
-function efectoHabilidades(){
+function efectoHabilidades() {
     var skills = document.getElementById("skills");
     var distancia_skills = window.innerHeight - skills.getBoundingClientRect().top;
-    if(distancia_skills >= 300){
+
+    // Si la sección skills está visible
+    if (distancia_skills >= 300) {
         let habilidades = document.getElementsByClassName("progreso");
         habilidades[0].classList.add("javascript");
         habilidades[1].classList.add("htmlcss");
@@ -31,8 +33,24 @@ function efectoHabilidades(){
         habilidades[7].classList.add("creatividad");
         habilidades[8].classList.add("dedicacion");
         habilidades[9].classList.add("proyect");
+    } else {
+        let habilidades = document.getElementsByClassName("progreso");
+        habilidades[0].classList.remove("javascript");
+        habilidades[1].classList.remove("htmlcss");
+        habilidades[2].classList.remove("photoshop");
+        habilidades[3].classList.remove("wordpress");
+        habilidades[4].classList.remove("drupal");
+        habilidades[5].classList.remove("comunicacion");
+        habilidades[6].classList.remove("trabajo");
+        habilidades[7].classList.remove("creatividad");
+        habilidades[8].classList.remove("dedicacion");
+        habilidades[9].classList.remove("proyect");
     }
 }
+
+// Agregar evento de scroll
+window.addEventListener('scroll', efectoHabilidades);
+
 
 
 //detecto el scrolling para aplicar la animacion de la barra de habilidades
