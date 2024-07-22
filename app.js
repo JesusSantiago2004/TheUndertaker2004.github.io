@@ -57,3 +57,4 @@ window.addEventListener('scroll', efectoHabilidades);
 window.onscroll = function(){
     efectoHabilidades();
 } 
+
