@@ -712,3 +712,34 @@ footer .arriba{
         width: 100%;
     }
 }
+
+.item .content {
+    display: none;
+    margin-top: 1em;
+}
+
+.item .header {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item .header h4 {
+    margin-right: 10px;
+}
+
+.item .details {
+    display: flex;
+    flex-direction: column; /* Asegura que fecha esté debajo de casa */
+}
+
+.item .arrow {
+    font-size: 1.2em;
+    transition: transform 0.3s ease;
+}
+
+.item.open .arrow {
+    transform: rotate(180deg); /* Rotar la flecha cuando está desplegado */
+}
+

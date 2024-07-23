@@ -56,5 +56,18 @@ window.addEventListener('scroll', efectoHabilidades);
 //detecto el scrolling para aplicar la animacion de la barra de habilidades
 window.onscroll = function(){
     efectoHabilidades();
-} 
+}
+
+function toggleContent(element) {
+    const item = element.parentElement;
+    const content = item.querySelector('.content');
+    if (content.style.display === "none" || content.style.display === "") {
+        content.style.display = "block";
+        item.classList.add("open");
+    } else {
+        content.style.display = "none";
+        item.classList.remove("open");
+    }
+}
+
 
