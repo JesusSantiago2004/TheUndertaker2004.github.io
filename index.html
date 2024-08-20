@@ -1,468 +1,215 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <!--MENU ENCABEZADO-->
-    <div class="contenedor-header">
-        <header>
-            <div class="logo">
-                <a href="#">Jesus Santiago</a>
-            </div>
-            <nav id="nav">
-                <ul>
-                    <li><a href="#inicio" onclick="seleccionar()">INICIO</a></li>
-                    <li><a href="#sobremi" onclick="seleccionar()">SOBRE MI</a></li>
-                    <li><a href="#skills" onclick="seleccionar()">SKILLS</a></li>
-                    <li><a href="#curriculum" onclick="seleccionar()">CURRICULUM</a></li>
-                    <li><a href="#portfolio" onclick="seleccionar()">PORTFOLIO</a></li>
-                    <li><a href="#contacto" onclick="seleccionar()">CONTACT ME</a></li>
-                </ul>
-            </nav>
-            <div class="nav-responsive" onclick="mostrarOcultarMenu()">
-                <i class="fa-solid fa-bars"></i>
-            </div>
-        </header>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Una pregunta para ti</title>
+    <style>
+      :root {
+        --ribbon-color: #ff6f91; /* Un color rosa fuerte para el lazo */
+        --wrapping-color: #ffb6c1; /* Un color rosa claro para la envoltura */
+        --bg-body: #ffe4e1; /* Un color de fondo suave y cálido */
+        --bg-text: #fff; /* Blanco para el fondo del texto */
+        --text: #333333;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: var(--bg-body);
+      }
+      .gift-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        bottom: 20%;
+      }
+      .gift-container.active {
+        animation: Vibration 1s ease forwards;
+      }
+      @keyframes Vibration {
+        0% {
+          transform: scale(1, 1);
+        }
+        25% {
+          transform: scale(0.95, 1.05);
+        }
+        50% {
+          transform: scale(1.1, 0.9);
+        }
+        70% {
+          transform: scale(0.9, 1.1);
+        }
+        100% {
+          transform: scale(1, 1);
+        }
+      }
+      .gift-container .gift-box {
+        position: absolute;
+        height: 200px;
+        width: 300px;
+        background: var(--wrapping-color);
+        animation: Bounce 4s ease infinite forwards;
+      }
+      @keyframes Bounce {
+        0% {
+          transform: translateY(-24px);
+        }
+        50% {
+          transform: translateY(0px);
+        }
+        100% {
+          transform: translateY(-24px);
+        }
+      }
+      .gift-box.active {
+        animation: none;
+      }
+      .gift-box::before {
+        content: "";
+        position: absolute;
+        width: 50px;
+        height: 200px;
+        background: var(--ribbon-color);
+        left: 124px;
+      }
+      .gift-box::after {
+        content: "";
+        position: absolute;
+        box-shadow: inset 0 10px rgba(0, 0, 0, 0.3);
+        width: 300px;
+        height: 200px;
+      }
+      .click {
+        position: absolute;
+        background: var(--wrapping-color);
+        width: 340px;
+        height: 90px;
+        top: -90px;
+        left: -20px;
+        cursor: pointer;
+        z-index: 1;
+        transition: 0.5s ease;
+      }
+      .click.active {
+        transition-delay: 1s;
+        transform: translateY(-240px);
+      }
+      .click::before {
+        content: "";
+        position: absolute;
+        width: 50px;
+        height: 90px;
+        background: var(--ribbon-color);
+        left: 144px;
+        z-index: 2;
+      }
+      .click::after {
+        content: "";
+        position: absolute;
+        width: 5px;
+        height: 0;
+        border-bottom: 60px solid var(--ribbon-color);
+        border-top: 60px solid var(--ribbon-color);
+        border-right: 60px solid transparent;
+        border-left: 0px solid transparent;
+        transform: rotate(-90deg);
+        top: -93px;
+        left: 136px;
+        z-index: 3;
+      }
+      .gift-container .shadow {
+        content: "";
+        position: relative;
+        width: 340px;
+        height: 40px;
+        background: rgba(0, 0, 0, 0.4);
+        top: 100px;
+        border-radius: 50%;
+        left: -4px;
+        animation: BounceOut 4s ease infinite forwards;
+      }
+      .gift-container .shadow.active {
+        animation: none;
+      }
+      @keyframes BounceOut {
+        0% {
+          transform: translateY(24px);
+          scale: 0.7;
+        }
+        50% {
+          transform: translateY(0px);
+          scale: 1;
+        }
+        100% {
+          transform: translateY(24px);
+          scale: 0.7;
+        }
+      }
+      .text {
+        position: absolute;
+        top: 0;
+        width: 200px;
+        background: var(--bg-text);
+        padding: 20px;
+        text-align: center;
+        font-size: 10px;
+        color: var(--text);
+        border-radius: 20px;
+        transition: 0.5s ease;
+        transition-delay: 1.2s;
+        z-index: -1;
+      }
+      .text.active {
+        transform: translateY(-240px);
+      }
+      .text.active2 {
+        top: 0;
+        transition-delay: 0.2s;
+      }
+    </style>
+    <script type="module">
+      const $ = (e) => document.getElementById(e);
+      const click = $("click");
+      const giftBox = $("gift-box");
+      const giftContainer = $("gift-container");
+      const shadow = $("shadow");
+      const text = $("text");
+
+      click.addEventListener("click", () => {
+        if (click.className === "click") {
+          click.classList.add("active");
+          giftBox.classList.add("active");
+          giftContainer.classList.add("active");
+          shadow.classList.add("active");
+          text.classList.add("active");
+          text.classList.remove("active2");
+        } else {
+          click.classList.remove("active");
+          giftBox.classList.remove("active");
+          giftContainer.classList.remove("active");
+          shadow.classList.remove("active");
+          text.classList.remove("active");
+          text.classList.add("active2");
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <div class="gift-container" id="gift-container">
+      <div class="shadow" id="shadow"></div>
+      <div class="gift-box" id="gift-box">
+        <div class="click" id="click"></div>
+      </div>
+      <div class="text" id="text">
+        <h1>Te amo ❤️</h1>
+      </div>
     </div>
-
-    <!-- SECCION INICIO -->
-    <section id="inicio" class="inicio">
-        <div class="contenido-banner">
-            <div class="contenedor-img">
-                <img src="https://upsrj.edu.mx/sistemaintegral/web/uploads/fotos/alumnos/22BIS/022000461.jpg" alt="">
-            </div>
-            <h1>Jesus Santiago</h1>
-            <h2>Ingeniero de Software</h2>
-            <h2>Experto - Networks/Cybersecurity/Web Designer</h2>
-            <div class="redes">
-                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://github.com/TheUndertaker2004" target="_blank"><i class="fa-brands fa-github"></i></a>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECCION SOBRE MI -->
-    <section id="sobremi" class="sobremi">
-        <div class="contenido-seccion">
-            <h2>Sobre Mí</h2>
-            <p><span>Hola, soy Jesús Santiago.</span> Me interesan las redes, la ciberseguridad y los videojuegos. Actualmente, me dedico a explorar y aprender más sobre estas áreas apasionantes para contribuir al mundo digital de manera innovadora y segura.</p>
-            <div class="fila">
-                <!-- datos personales -->
-                <div class="col">
-                    <h3>Datos Personales</h3>
-                    <ul>
-                        <li>
-                            <strong>Teléfono</strong>
-                            446 325 2451
-                        </li>
-                        <li>
-                            <strong>Email</strong>
-                            serranoruizjesussantiago@gmail.com
-                        </li>
-                        <li>
-                            <strong>Website</strong>
-                            <a style="color: white; text-decoration: none;" href="https://github.com/">GIT HUB</a>
-                        </li>
-                        <li>
-                            <strong>Dirección</strong>
-                            Independencia Norte #90 Sta Rosa Jauregui.Qro.
-                        </li>
-                        <li>
-                            <strong>Cargo</strong>
-                            <span>Front-End Developer</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- intereses -->
-                <div class="col">
-                    <h3>Intereses</h3>
-                    <div class="contenedor-intereses">
-                        <div class="interes">
-                            <i class="fa-solid fa-gamepad"></i>
-                            <span>JUEGOS</span>
-                        </div>
-                        <div class="interes">
-                            <i class="fa-solid fa-music"></i>
-                            <span>MUSICA</span>
-                        </div>
-                        <div class="interes">
-                            <i class="fa-solid fa-language"></i>
-                            <span>IDIOMAS</span>
-                        </div>
-                        <div class="interes">
-                            <i class="fa-solid fa-shield"></i>
-                            <span>CYBERSEC</span>
-                        </div>
-                        <div class="interes">
-                            <i class="fa-solid fa-basketball-ball"></i>
-                            <span>DEPORTE</span>
-                        </div>
-                        <div class="interes">
-                            <i class="fa-solid fa-book"></i>
-                            <span>LIBROS</span>
-                        </div>
-                        <div class="interes">
-                            <i class="fa-solid fa-car"></i>
-                            <span>AUTOS</span>
-                        </div>
-                        <div class="interes">
-                            <i class="fa-solid fa-laptop"></i>
-                            <span>PROG-WEB</span>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-            <button>
-                Descargar CV <i class="fa-solid fa-download"></i>
-                <span class="overlay"></span>
-            </button>
-        </div>
-    </section>
-
-    <!-- SECCION SKILLS -->
-    <section class="skills" id="skills">
-        <div class="contenido-seccion">
-            <h2>Skills</h2>
-            <div class="fila">
-                <!-- Technical Skill -->
-                <div class="col">
-                    <h3>Technical Skills</h3>
-                    <div class="skill">
-                        <span>Javascript</span>
-                        <div class="barra-skill">
-                            <div class="progreso">
-                                <span>25%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="skill">
-                        <span>HTML & CSS</span>
-                        <div class="barra-skill">
-                            <div class="progreso">
-                                <span>85%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="skill">
-                        <span>Redes</span>
-                        <div class="barra-skill">
-                            <div class="progreso">
-                                <span>80%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="skill">
-                        <span>Ciberseguridad</span>
-                        <div class="barra-skill">
-                            <div class="progreso">
-                                <span>50%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="skill">
-                        <span>C++</span>
-                        <div class="barra-skill">
-                            <div class="progreso">
-                                <span>50%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Professional Skills -->
-                <div class="col">
-                    <h3>Professional Skills</h3>
-                    <div class="skill">
-                        <span>Comunicación</span>
-                        <div class="barra-skill">
-                            <div class="progreso">
-                                <span>75%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="skill">
-                        <span>Trabajo en Equipo</span>
-                        <div class="barra-skill">
-                            <div class="progreso">
-                                <span>70%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="skill">
-                        <span>Dedicacion</span>
-                        <div class="barra-skill">
-                            <div class="progreso">
-                                <span>100%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="skill">
-                        <span>Creatividad</span>
-                        <div class="barra-skill">
-                            <div class="progreso">
-                                <span>95%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="skill">
-                        <span>Learn New Things</span>
-                        <div class="barra-skill">
-                            <div class="progreso">
-                                <span>85%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-<!-- SECCION CURRICULUM -->
-<section id="curriculum" class="curriculum">
-    <div class="contenido-seccion">
-        <h2>Curriculum</h2>
-        <div class="fila">
-            <div class="col izquierda">
-                <h3>Educación</h3>
-                <div class="item izq">
-                    <div class="header" onclick="toggleContent(this)">
-                        <h4>Mechatronics Technician</h4>
-                        <div class="details">
-                            <span class="casa">CECYTEQ 9</span>
-                            <span class="fecha">2019 - 2022</span>
-                        </div>
-                        <span class="arrow">&#x25BC;</span> <!-- Flecha hacia abajo -->
-                    </div>
-                    <div class="content">
-                        <p>
-                            En el CECYTEQ, elegí la carrera de Técnico en Mecatrónica. A pesar de que los laboratorios no estaban bien equipados, adquirí habilidades prácticas que complementaron los conocimientos teóricos gracias al apoyo y guía de maestros capacitados. Disfruté aprender sobre Mecatrónica, a pesar de algunos desafíos con temas y proyectos.
-                        </p>
-                    </div>
-                    <div class="conectori">
-                        <div class="circuloi"></div>
-                    </div>
-                </div>
-                <div class="item izq">
-                    <div class="header" onclick="toggleContent(this)">
-                        <h4>TSU <br> Information Technologies</h4>
-                        <div class="details">
-                            <span class="casa">UTEQ</span>
-                            <span class="fecha">2022 - 2022</span>
-                        </div>
-                        <span class="arrow">&#x25BC;</span> <!-- Flecha hacia abajo -->
-                    </div>
-                    <div class="content">
-                        <p>
-                            En la UTEQ, elegí la TSU en Tecnologías de la Información. Aunque solo estuve una semana como parte de mi prepa, fue una experiencia excelente gracias a los laboratorios bien equipados, que facilitaron mi aprendizaje práctico y complementaron los conocimientos teóricos. Disfruté mucho explorando esta área y la calidad de la infraestructura disponible.
-                        </p>
-                    </div>
-                    <div class="conectori">
-                        <div class="circuloi"></div>
-                    </div>
-                </div>
-                <div class="item izq">
-                    <div class="header" onclick="toggleContent(this)">
-                        <h4>Software Engineering</h4>
-                        <div class="details">
-                            <span class="casa">UPSRJ</span>
-                            <span class="fecha">2023 - 2026</span>
-                        </div>
-                        <span class="arrow">&#x25BC;</span> <!-- Flecha hacia abajo -->
-                    </div>
-                    <div class="content">
-                        <p>
-                            Estudio Ingeniería en Software en la UPSRJ. Me gusta la carrera, aunque no soy muy bueno programando en C++, Java o C#. Disfruto diseñar páginas web, aunque a veces surjan errores. Me interesan las redes, informática y ciberseguridad. Los maestros están excelentemente capacitados, enriqueciendo mi experiencia educativa.
-                        </p>
-                    </div>
-                    <div class="conectori">
-                        <div class="circuloi"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col derecha">
-                <h3>Experiencia de trabajo/Proyectos Escolares</h3>
-                <div class="item der">
-                    <div class="header" onclick="toggleContent(this)">
-                        <h4>Web Programming and <br> Interface Design</h4>
-                        <div class="details">
-                            <span class="casa">UPSJR</span>
-                            <span class="fecha">2024 - 2024</span>
-                        </div>
-                        <span class="arrow">&#x25BC;</span> <!-- Flecha hacia abajo -->
-                    </div>
-                    <div class="content">
-                        <p>
-                            Tuve una experiencia única en mi carrera al desarrollar por mi cuenta una página web semifuncional de películas. Fui responsable de todo el proceso, desde el diseño hasta la implementación. Aunque fue un proyecto desafiante, logré desarrollarla utilizando mis conocimientos en HTML, CSS y JavaScript para el frontend. Además, implementé funcionalidades básicas en el backend utilizando tecnologías como Node.js y gestioné la información utilizando una base de datos. Aunque no fue perfecta, esta experiencia me permitió aprender mucho y mejorar mis habilidades en desarrollo web.
-                        </p>
-                    </div>
-                    <div class="conectord">
-                        <div class="circulod"></div>
-                    </div>
-                </div>
-                <div class="item der">
-                    <div class="header" onclick="toggleContent(this)">
-                        <h4>Create a Video Game 2D/3D</h4>
-                        <div class="details">
-                            <span class="casa">UPSRJ</span>
-                            <span class="fecha">2023 - 2023</span>
-                        </div>
-                        <span class="arrow">&#x25BC;</span> <!-- Flecha hacia abajo -->
-                    </div>
-                    <div class="content">
-                        <p>
-                            Tuve una experiencia única en mi carrera al desarrollar un videojuego 2D y 3D en la UPSRJ. Utilicé Unity, GDevelop y C#, aunque con este último batallé un poco. Aprendí a manejar diferentes motores de juego y lenguajes de programación, mejorando mis habilidades técnicas y mi comprensión del desarrollo de videojuegos a pesar de los desafíos.                        
-                        </p>
-                    </div>
-                    <div class="conectord">
-                        <div class="circulod"></div>
-                    </div>
-                </div>
-                <div class="item der">
-                    <div class="header" onclick="toggleContent(this)">
-                        <h4>Mechatronics Project</h4>
-                        <div class="details">
-                            <span class="casa">CECYTEQ</span>
-                            <span class="fecha">2021 - 2022</span>
-                        </div>
-                        <span class="arrow">&#x25BC;</span> <!-- Flecha hacia abajo -->
-                    </div>
-                    <div class="content">
-                        <p>
-                            Durante mi estancia en el CECYTEQ, diseñé y construí en equipo una impresora láser básica y un detector de personas. Este proyecto me permitió aplicar conocimientos de electrónica y programación, trabajar con sensores y microcontroladores, y mejorar mis habilidades técnicas y mi comprensión de la ingeniería aplicada.
-                        </p>
-                    </div>
-                    <div class="conectord">
-                        <div class="circulod"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-    <!-- SECCION PORTFOLIO -->
-    <section id="portfolio" class="portfolio">
-        <div class="contenido-seccion">
-            <h2>PORTFOLIO</h2>
-            <div class="galeria">
-                <div class="proyecto">
-                    <img src="imagenes/WEB DESING.png" alt="">
-                    <div class="overlay">
-                        <h3>Desarrollo de Página Web</h3>
-                        <p>2024 - UPSRJ</p>
-                    </div>
-                </div>
-                <div class="proyecto">
-                    <img src="imagenes/VIDEO GAME.png" alt="">
-                    <div class="overlay">
-                        <h3>Videojuego 3D & 2D</h3>
-                        <p>2023 - UPSRJ</p>
-                    </div>
-                </div>
-                <div class="proyecto">
-                    <img src="imagenes/CONTADOR PERSONAS.png" alt="">
-                    <div class="overlay">
-                        <h3>Proyecto Contador de Personas</h3>
-                        <p>2021 - 2022 - CECYTEQ</p>
-                    </div>
-                </div>
-                <div class="proyecto">
-                    <img src="imagenes/UTEQ3.0.png" alt="">
-                    <div class="overlay">
-                        <h3>TSU en Tecnologías de la Información</h3>
-                        <p>2022 - UTEQ</p>
-                    </div>
-                </div>
-                <div class="proyecto">
-                    <img src="imagenes/CECYTEQ2.0.png" alt="">
-                    <div class="overlay">
-                        <h3>Técnico en Mecatrónica</h3>
-                        <p>2019 - 2022 - CECYTEQ 9</p>
-                    </div>
-                </div>
-                <div class="proyecto">
-                    <img src="imagenes/UPSRJ2.0.png" alt="">
-                    <div class="overlay">
-                        <h3>Ingeniería en Software</h3>
-                        <p>2023 - 2026 - UPSRJ</p>
-                    </div>
-                </div>
-            </div>
-        </div>        
-    </section>
-
-    <!-- SECCION CONTACTO -->
-    <section id="contacto" class="contacto">
-        <div class="contenido-seccion">
-            <h2>CONTACT ME</h2>
-            <div class="fila">
-                <!-- Formulario -->
-                <div class="col">
-                    <input type="text" placeholder="Tú Nombre">
-                    <input type="text" placeholder="Número telefónico">
-                    <input type="text" placeholder="Dirección de correo">
-                    <textarea name="" id="" cols="10" rows="5" placeholder="Mensaje"></textarea>
-                    <button>
-                        Enviar Mensaje<i class="fa-solid fa-paper-plane"></i>
-                        <span class="overlay"></span>
-                    </button>
-                </div>
-                <!-- Mapa -->
-                <br>
-                <br>
-                <br>
-                <br>
-                <div class="col">
-                    <img src="img/ubicacion.png" alt="">
-                    <div class="info">
-                        <ul>
-                            <li>
-                                <i class="fa-solid fa-location-dot"></i>
-                                Santa Rosa Jauregui
-                            </li>
-                            <li>
-                                <i class="fa-solid fa-mobile-screen"></i>
-                                Contacto: 446 325 2451 
-                            </li>
-                            <li>
-                                <i class="fa-solid fa-envelope"></i>
-                                Email: serranoruizjesussantiago@gmail.com
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <br>
-                <br>
-                <br>
-                <br>
-            </div>
-        </div>
-    </section>
-
-    <!-- footer -->
-    <footer>
-        <a href="#inicio" class="arriba">
-            <i class="fa-solid fa-angles-up"></i>
-        </a>
-        <div class="redes">
-            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://github.com/TheUndertaker2004" target="_blank"><i class="fa-brands fa-github"></i></a>
-        </div>
-    </footer>
-
-    <script src="app.js"></script>
-</body>
+  </body>
 </html>
